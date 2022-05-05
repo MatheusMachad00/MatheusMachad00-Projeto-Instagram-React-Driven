@@ -1,40 +1,91 @@
-import PostUsuario from "./PostUsuario.jsx";
+import { useState } from "react";
+import { Post } from "./style";
 
 const objPosts = [
     {
-        userImg: ["img/jolyne__perfil.png", "jolyne"],
+        userImg: "img/jolyne__perfil.png",
         userName: "JolyneCujoh",
-        postImg: ["img/jojo-6-poster.jpg", "jolyne and friends"],
-        likeImg: ["img/jotaro_perfil.jpg", "jotaro"],
+        postImg: "img/jojo-6-poster.jpg",
+        postImgAlt: "jolyne and friends",
+        likeImg: "img/jotaro_perfil.jpg",
+        likeImgAlt: "jotaro",
         userLike: "JotaroKujo"
     },
     {
-        userImg: ["img/koichi_perfil.png", "koich"],
+        userImg: "img/koichi_perfil.png",
         userName: "KoichiHirose",
-        postImg: ["img/koichi-and-yukako.jpeg", "koichi-and-yukako"],
-        likeImg: ["img/yukako_perfil.jpg", "yukako"],
+        postImg: "img/koichi-and-yukako.jpeg",
+        postImgAlt: "koichi-and-yukako",
+        likeImg: "img/yukako_perfil.jpg",
+        likeImgAlt: "yukako",
         userLike: "YukakoYamagishi"
     },
     {
-        userImg: ["img/jotaro_perfil.jpg", "jotaro"],
+        userImg: "img/jotaro_perfil.jpg",
         userName: "JotaroKujo",
-        postImg: ["img/jotaro and friends.jpg", "jotaro and friends"],
-        likeImg: ["img/joseph_perfil.jfif", "joseph"],
+        postImg: "img/jotaro and friends.jpg",
+        postImgAlt: "jotaro and friends",
+        likeImg: "img/joseph_perfil.jfif",
+        likeImgAlt: "joseph",
         userLike: "JosephJoelstar"
     }
 ];
 
-export default function Posts() {
+export default function PostUsuario(props) {
+    const [likes, setLikes] = useState([]);
+
+    function postLiked(like) {
+        if (likes.includes(like)) {
+            setLikes([...likes.filter((l) => l !== like)]);
+            return;
+        }
+
+        setLikes([...likes, like]);
+    }
+
     return (
         <>
-            {objPosts.map((post, index) => (
-                <PostUsuario
-                    key={index}
-                    userImg={post.userImg}
-                    userName={post.userName}
-                    postImg={post.postImg}
-                    likeImg={post.likeImg}
-                    userLike={post.userLike} />
-            ))} </>
+            {objPosts.map((el, index) => (
+                <Post key={index} selecionado={likes.includes(index)}>
+                    <div className="topo">
+                        <div className="usuario">
+                            <img className="usuario-img" src={el.userImg} alt={el.userName} />
+                            {el.userName}
+                        </div>
+                        <div className="acoes">
+                            <ion-icon name="ellipsis-horizontal"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div className="conteudo">
+                        <img onClick={() => postLiked(index)} src={el.postImg} alt={el.postImgAlt} />
+                    </div>
+
+                    <div className="fundo">
+                        <div className="acoes">
+                            <div className="botoes">
+                                <div className="liked">
+                                {likes.includes(index) ?
+                                    <ion-icon onClick={() => postLiked(index)} name="heart"></ion-icon>
+                                    : <ion-icon onClick={() => postLiked(index)} name="heart-outline"></ion-icon>}
+                                </div>
+                                <ion-icon name="chatbubble-outline"></ion-icon>
+                                <ion-icon name="paper-plane-outline"></ion-icon>
+                            </div>
+                            <div>
+                                <ion-icon name="bookmark-outline"></ion-icon>
+                            </div>
+                        </div>
+
+                        <div className="curtidas">
+                            <img className="usuario-img" src={el.likeImg} alt={el.likeImgAlt} />
+                            <div className="texto">
+                                Curtido por <strong>{el.userLike}</strong> e <strong>outras 101.523 pessoas</strong>
+                            </div>
+                        </div>
+                    </div>
+                </Post>
+            ))};
+        </>
     );
 }
