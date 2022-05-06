@@ -38,6 +38,7 @@ export const Post = styled.div`
 
 .conteudo img {
     width: 100%;
+    cursor: pointer;
 }
 
 .fundo .acoes {
@@ -48,10 +49,6 @@ export const Post = styled.div`
 }
 
 .fundo .acoes div:first-child ion-icon {
-    margin-right: 6px;
-}
-
-.fundo .acoes .red div:first-child ion-icon {
     margin-right: 6px;
 }
 
@@ -74,9 +71,11 @@ export const Post = styled.div`
 
 .botoes {
     display: flex;
+    cursor: pointer;
 }
 
 .liked{
     color: ${(props) => (props.selecionado ? "red" : "")};
+    cursor: pointer;
 }
 `

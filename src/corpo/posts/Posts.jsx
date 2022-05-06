@@ -31,7 +31,7 @@ const objPosts = [
     }
 ];
 
-export default function PostUsuario(props) {
+export default function PostUsuario() {
     const [likes, setLikes] = useState([]);
 
     function postLiked(like) {
@@ -76,7 +76,6 @@ export default function PostUsuario(props) {
                                 <ion-icon name="bookmark-outline"></ion-icon>
                             </div>
                         </div>
-
                         <div className="curtidas">
                             <img className="usuario-img" src={el.likeImg} alt={el.likeImgAlt} />
                             <div className="texto">
@@ -85,7 +84,7 @@ export default function PostUsuario(props) {
                         </div>
                     </div>
                 </Post>
-            ))};
+            ))}
         </>
     );
 }
